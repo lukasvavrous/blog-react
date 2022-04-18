@@ -20,6 +20,10 @@ const Nav = () => (
             <Link to='/login'>
                 <li>Login</li>
             </Link>
+
+            <Link to='/counter'>
+                <li>Counter</li>
+            </Link>
         </ul>            
     </StyledNav>
 )

@@ -2,28 +2,41 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Register = () => (
+const Register = () => {
+    const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const register = () =>{
+        if( !(name && password && password == confirmPassword) ){
+            alert("You must set your credentials correctly !")
+            return
+        }
+       
+    }
+
+    return(
     <Form>
         <h2>Register</h2> 
 
-        <InputContainer>
-            
-            <input type="text" placeholder="Username" name="uname" required></input>
+        <InputContainer>                
+            <input type="text" value={name} onInput={e => setName(e.target.value)} placeholder="Username" name="uname" required ></input>
             <br/>            
-            <input type="password" placeholder="Password" name="psw" required/>
+            <input type="password" value={password} onInput={e => setPassword(e.target.value)}  placeholder="Password" name="psw" required/>
             <br/>            
-            <input type="password" placeholder="Confirm Password" name="psw_conf" required/>
+            <input type="password" value={confirmPassword} onInput={e => setConfirmPassword(e.target.value)} placeholder="Confirm Password" name="psw_conf" required/>
         </InputContainer>
         <br/>
 
-        <button>Register</button>
+        <button onClick={register}>Register</button>
 
         <br/>
         <br/>
-        
+            
         <p>Already have an account? <Link to='/Login'><b>Log in</b></Link></p>
     </Form>
-)    
+    )    
+}
 
 
 const Form = styled.div`    
@@ -35,7 +48,7 @@ const Form = styled.div`
         border-color: black;
         border-radius: 5px;
 
-        border: 1px solid black;       
+        border: 1px solid transparent;       
         cursor: pointer;       
 
         &:hover,

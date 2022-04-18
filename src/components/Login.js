@@ -34,7 +34,7 @@ const Form = styled.div`
         border-color: black;
         border-radius: 5px;
 
-        border: 1px solid black;       
+        border: 1px solid transparent;       
         cursor: pointer;         
         
         &:hover,
