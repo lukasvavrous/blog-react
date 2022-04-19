@@ -1,34 +1,45 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { register } from '../services/UserService'
+
+import { ToastContainer, toast } from 'react-toastify';
 
 const Register = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const register = () =>{
-        if( !(name && password && password == confirmPassword) ){
-            alert("You must set your credentials correctly !")
-            return
+    const registerClick = () =>{
+        if( name && password && password == confirmPassword ){
+            let isRegistered = register(name, password)
+            
+            if(isRegistered){
+                toast.success("Registration was sucessfull")
+            }
+            else{                
+                toast.warning("Name is already somebody using!")
+            }
+
         }
-       
-    }
+        else{
+            alert("You must set your credentials correctly !")
+        }       
+    }    
 
     return(
     <Form>
         <h2>Register</h2> 
-
         <InputContainer>                
-            <input type="text" value={name} onInput={e => setName(e.target.value)} placeholder="Username" name="uname" required ></input>
+            <input type="text" value={name} onChange={ (e) => setName(e.target.value) } placeholder="Username" name="uname" required ></input>
             <br/>            
-            <input type="password" value={password} onInput={e => setPassword(e.target.value)}  placeholder="Password" name="psw" required/>
+            <input type="password" value={password} onChange={ (e) => setPassword(e.target.value) } placeholder="Password" name="psw" required/>
             <br/>            
-            <input type="password" value={confirmPassword} onInput={e => setConfirmPassword(e.target.value)} placeholder="Confirm Password" name="psw_conf" required/>
+            <input type="password" value={confirmPassword} onChange={ (e) => setConfirmPassword(e.target.value) } placeholder="Confirm Password" name="psw_conf" required/>
         </InputContainer>
         <br/>
 
-        <button onClick={register}>Register</button>
+        <button onClick={registerClick}>Register</button>
 
         <br/>
         <br/>

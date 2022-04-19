@@ -41,10 +41,10 @@ const StyledNav = styled.nav`
         text-decoration:none ;
     }
     
-    ul{
-        width: 15%;
+    ul {
+        width: 50vw;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: center;
         list-style: none;
     }

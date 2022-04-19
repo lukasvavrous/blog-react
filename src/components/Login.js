@@ -1,21 +1,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { login } from '../services/UserService'
 
 const Login = () => {
+    const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
+
+    const LoginClick = () =>{
+        login(name, password)
+    }   
+
     return (
         <Form>
             <h2>Login</h2> 
 
             <InputContainer>
-                
-                <input type="text" placeholder="Username" name="uname" required></input>
+                <input type="text" value={name} onChange={ (e) => setName(e.target.value) } placeholder="Username" name="uname" required ></input>
                 <br/>            
-                <input type="password" placeholder="Password" name="psw" required/>
+                <input type="password" value={password} onChange={ (e) => setPassword(e.target.value) } placeholder="Password" name="psw" required/>
             </InputContainer>
             <br/>
 
-            <button>Login</button>
+            <button onClick={LoginClick}>Login</button>
             
             <br/>
             <br/>
