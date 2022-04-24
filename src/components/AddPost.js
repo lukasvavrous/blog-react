@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { register } from '../services/UserService'
 
 import { toast } from 'react-toastify';
 
-const Register = () => {
-    const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+const AddPost = () => {
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');    
 
-    const registerClick = () =>{
-        if( name && password && password == confirmPassword ){
-            let isRegistered = register(name, password)
+    const addPost = () =>{
+        if( title && content){
+            let isRegistered = true;//register(name, password)
             
             if(isRegistered){
                 toast.success("Registration was sucessfull")
@@ -29,22 +27,15 @@ const Register = () => {
 
     return(
     <Form>
-        <h2>Register</h2> 
+        <h2>Add post</h2> 
         <InputContainer>                
-            <input type="text" value={name} onChange={ (e) => setName(e.target.value) } placeholder="Username" name="uname" required ></input>
+            <input type="text" value={title} onChange={ (e) => setTitle(e.target.value) } placeholder="Title" name="utitle" required ></input>
             <br/>            
-            <input type="password" value={password} onChange={ (e) => setPassword(e.target.value) } placeholder="Password" name="psw" required/>
-            <br/>            
-            <input type="password" value={confirmPassword} onChange={ (e) => setConfirmPassword(e.target.value) } placeholder="Confirm Password" name="psw_conf" required/>
+            <input className="txtContent" type="text" value={content} onChange={ (e) => setContent(e.target.value) } placeholder="Content" name="content" required/>                        
         </InputContainer>
         <br/>
 
-        <button onClick={registerClick}>Register</button>
-
-        <br/>
-        <br/>
-            
-        <p>Already have an account? <Link to='/Login'><b>Log in</b></Link></p>
+        <button onClick={addPost}>Add post</button>
     </Form>
     )    
 }
@@ -92,6 +83,10 @@ const InputContainer = styled.div`
             border: 1px solid rgba(0, 0, 0, 0.25);
         }
     }
-`
 
-export default Register;
+    .txtContent{
+        min-height: 20vh;
+        min-width: 30vw;
+    }
+`
+export default AddPost

@@ -15,7 +15,6 @@ const Nav = () => (
             <Link to='/blog'>
                 <li>Blog</li>
             </Link>
-
             
             <Link to='/login'>
                 <li>Login</li>
@@ -23,6 +22,10 @@ const Nav = () => (
 
             <Link to='/counter'>
                 <li>Counter</li>
+            </Link>
+
+            <Link to='/users'>
+                <li>Users</li>
             </Link>
         </ul>            
     </StyledNav>
@@ -33,11 +36,10 @@ const StyledNav = styled.nav`
     justify-content: space-around;
     align-items: center;
     min-height: 10vh;
-    background: rgb(93, 79, 82);
+    background: rgba(90, 80, 75, 0.5);
     
     * {
         color: white;
-        cursor: pointer;        
         text-decoration:none ;
     }
     
@@ -47,6 +49,17 @@ const StyledNav = styled.nav`
         justify-content: space-around;
         align-items: center;
         list-style: none;
+    }
+
+    a {        
+        padding: 10px;
+        cursor: pointer;     
+        
+        font-size: large;
+
+        &:hover{
+         color: red;
+        }
     }
 `
 

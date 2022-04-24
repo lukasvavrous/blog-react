@@ -13,25 +13,33 @@ import Register from './components/Register'
 import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import Users from './components/Users'
+import {QueryClient, QueryClientProvider} from 'react-query'
+import AddPost from './components/AddPost'
 
+const queryClient= new QueryClient()
 
 const App = () => (
-    
-    <Router>        
-        <Nav/>
-        <Narrower>
-            <Routes>
-                <Route path='/' element={ <Home/> }></Route>
-                <Route path='/about' element={ <About/> }></Route>
-                <Route path='/login' element={ <Login/> }></Route>
-                <Route path='/register' element={ <Register/> }></Route>
-                <Route path='/counter' element={ <CounterPage/> }></Route>
-                <Route path='/blog' element={ <Blog/> }></Route>
-            </Routes>
-        </Narrower>                
-        <ToastContainer position="top-center"/>
+    <QueryClientProvider client={queryClient}>
 
-    </Router>
+        <Router>        
+            <Nav/>
+            <Narrower>
+                <Routes>
+                    <Route path='/' element={ <Home/> }></Route>
+                    <Route path='/about' element={ <About/> }></Route>
+                    <Route path='/login' element={ <Login/> }></Route>
+                    <Route path='/register' element={ <Register/> }></Route>
+                    <Route path='/counter' element={ <CounterPage/> }></Route>
+                    <Route path='/blog' element={ <Blog/> }></Route>
+                    <Route path='/users' element={ <Users/> }></Route>
+                    <Route path='/addPost' element={ <AddPost/> }></Route>
+                </Routes>
+            </Narrower>                
+            <ToastContainer position="top-center"/>
+
+        </Router>
+    </QueryClientProvider>
 )
 
 
