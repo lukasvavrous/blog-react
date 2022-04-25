@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import { useQuery } from "react-query";
+import LoadingPage from "./LoadingPage";
+
+
+const PostsContainer = styled.div`    
+
+`
+
 
 const StyledPostElement = styled.div`    
     background: rgba(150, 150, 150, 0.3);
@@ -11,65 +20,41 @@ const StyledPostElement = styled.div`
     height: 15vh;    
 `
 
-const getPosts = (posts) => {
-    return [
-        {
-            "id": 0,
-            "title": "Prvni nadpis",
-            "content": "Obsah prvniho clanecku",
-            "author": "Jaroušek Z Trocnova"
-        },
-        {
-            "id": 1,
-            "title": "druhy nadpis",
-            "content": "Obsah prvniho clanecku",
-            "author": "Jaroušek Z Trocnova"
-        },              
-        {
-            "id": 2,
-            "title": "Prvni nadpis",
-            "content": "Obsah prvniho clanecku",
-            "author": "Jaroušek Z Trocnova"
-        },     
-        {
-            "id": 3,
-            "title": "3 nadpis",
-            "content": "Obsah prvniho clanecku",
-            "author": "Jaroušek Z Trocnova"
-        },     
-        {
-            "id": 4,
-            "title": "4546153 nadpis",
-            "content": "Obsah prvniho clanecku",
-            "author": "Jaroušek Z Trocnova"
-        }       
-    ]
-}
 
-const PostElement = (props) => {
-    return(
+const Posts = (props) => {
+    const PostElement = (props) => 
+    (
         <StyledPostElement>
-            <h4>{props.title}</h4>
-            <p>{props.content}</p>
-            <Link to={`/users/${props.id}`}>{props.author}</Link>
+            {console.log(props)}
+            <h4>{props.data.title}</h4>
+            <p>{props.data.content}</p>
+            <Link to={`/users/${props.data._id}`}>{props.data.author}</Link>
         </StyledPostElement>
+    )
+    
+    return (
+        <PostsContainer>
+            {props.data && props.data.map(x => <PostElement key={x._id} data={x}></PostElement>)}
+        </PostsContainer>
     )
 }
 
-const Posts = (props) => 
-(
-    <div>
-        {props.data && props.data.map(x => <PostElement key={x.id} id={x.id} title={x.title} content={x.content} author={x.author}></PostElement>)};
-    </div>
-)
+
+const getPosts = () => {
+    return axios.get('http://127.0.0.1:5000/posts')
+}
 
 const Blog = () => {
-    const posts = getPosts();
+    const {isLoading, data} = useQuery('posts', getPosts)            
+
+    if(isLoading){
+        return <LoadingPage/>
+    }
 
     return(    
         <section>
             <Link to={'/addPost'}>Přidat příspěvek</Link>
-            <Posts data={posts}/>            
+            <Posts data={data.data}/>            
         </section>        
     )
 }

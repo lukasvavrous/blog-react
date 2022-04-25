@@ -17,6 +17,9 @@ import Users from './components/Users'
 import {QueryClient, QueryClientProvider} from 'react-query'
 import AddPost from './components/AddPost'
 
+
+import Loged from './features/loged/Loged'
+
 const queryClient= new QueryClient()
 
 const App = () => (
@@ -30,6 +33,7 @@ const App = () => (
                     <Route path='/about' element={ <About/> }></Route>
                     <Route path='/login' element={ <Login/> }></Route>
                     <Route path='/register' element={ <Register/> }></Route>
+                    <Route path='/loged' element={ <Loged/> }></Route>
                     <Route path='/counter' element={ <CounterPage/> }></Route>
                     <Route path='/blog' element={ <Blog/> }></Route>
                     <Route path='/users' element={ <Users/> }></Route>

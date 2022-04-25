@@ -6,8 +6,10 @@ const Container = styled.div`
     width: 75vw;
     text-align: center;
 
-    height: 90vh;
-    overflow-y: hidden;
+    overflow-y: scroll;
+
+
+    height: 90vh;    
 `
 
 const Narrower = ({ children }) => (

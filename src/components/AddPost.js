@@ -1,27 +1,37 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+
 
 import { toast } from 'react-toastify';
+
 
 const AddPost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');    
 
-    const addPost = () =>{
-        if( title && content){
-            let isRegistered = true;//register(name, password)
-            
-            if(isRegistered){
-                toast.success("Registration was sucessfull")
-            }
-            else{                
-                toast.warning("Name is already somebody using!")
-            }
+    const sendPost = () => {
+        return axios.put('http://127.0.0.1:5000/posts', {
+            author: "Luxor",
+            title: title,
+            content: content,
+        })
+    }                
 
+    
+    const addPost = async () =>{
+        if( title && content){
+            let isSended = await sendPost()
+            
+            if(isSended)
+                document.location.href = '/blog'         
+            else
+                toast.warning("Somethink went wrong")
+            
         }
         else{
-            alert("You must set your credentials correctly !")
+            alert("You have to fill up the inputs !")
         }       
     }    
 

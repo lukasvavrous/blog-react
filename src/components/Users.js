@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useQuery } from "react-query";
+import LoadingPage from "./LoadingPage";
 
 
 const StyledTable = styled.table`   
@@ -36,7 +37,7 @@ const Users = () => {
     let response = data;
 
     if(isLoading){
-        return <h2>fwafawf...</h2>
+        return <LoadingPage/>
     }
     
     const Header = () => {  
@@ -52,11 +53,10 @@ const Users = () => {
     }
 
     const Content = () => {        
-        const UserAttributes = () => {            
-            
+        const UserAttributes = () => {                        
             let attributes = response.data.map(user => (
                 <tr>
-                    {Object.values(user).map((att, i) => (<td key={i}><div contenteditable="true">{att}</div></td>))}                            
+                    {Object.values(user).map((att, i) => (<td key={i}><div contentEditable="true">{att}</div></td>))}                            
                 </tr>
             ))     
 

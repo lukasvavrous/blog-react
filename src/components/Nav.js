@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Logo from '../images/blogosLogoCroped.png'
 
 const Nav = () => (
     <StyledNav>
         <Link to='/'>
-            <h3>Logo</h3>
+            <img src={Logo} alt='Blogos logo'></img>        
         </Link>
         <ul>
             <Link to='/about'>
@@ -35,7 +36,7 @@ const StyledNav = styled.nav`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    min-height: 10vh;
+    min-height: 8vh;
     background: rgba(90, 80, 75, 0.5);
     
     * {
