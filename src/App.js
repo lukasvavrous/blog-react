@@ -19,6 +19,7 @@ import AddPost from './components/AddPost'
 
 
 import Loged from './features/loged/Loged'
+import LoginPage from './components/Login'
 
 const queryClient= new QueryClient()
 
@@ -31,7 +32,7 @@ const App = () => (
                 <Routes>
                     <Route path='/' element={ <Home/> }></Route>
                     <Route path='/about' element={ <About/> }></Route>
-                    <Route path='/login' element={ <Login/> }></Route>
+                    <Route path='/login' element={ <LoginPage/> }></Route>
                     <Route path='/register' element={ <Register/> }></Route>
                     <Route path='/loged' element={ <Loged/> }></Route>
                     <Route path='/counter' element={ <CounterPage/> }></Route>

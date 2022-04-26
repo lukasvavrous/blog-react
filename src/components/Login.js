@@ -6,9 +6,10 @@ import { login } from '../services/UserService'
 const Login = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-
-    const LoginClick = () =>{
-        login(name, password)
+    
+    const LoginClick = async () =>{
+        let res = await login(name, password)
+        console.log(res)
     }   
 
     return (

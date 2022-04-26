@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Logo from '../images/blogosLogoCroped.png'
 
 const Nav = () => (
@@ -9,25 +9,25 @@ const Nav = () => (
             <img src={Logo} alt='Blogos logo'></img>        
         </Link>
         <ul>
-            <Link to='/about'>
+            <NavLink to='/about' activeclassname='is-active'>
                 <li>About</li>
-            </Link>
+            </NavLink>
 
-            <Link to='/blog'>
+            <NavLink to='/blog' activeclassname='is-active'>
                 <li>Blog</li>
-            </Link>
+            </NavLink>
             
-            <Link to='/login'>
+            <NavLink to='/login' activeclassname='is-active'>
                 <li>Login</li>
-            </Link>
+            </NavLink>
 
-            <Link to='/counter'>
+            <NavLink to='/counter' activeclassname='is-active'>
                 <li>Counter</li>
-            </Link>
+            </NavLink>
 
-            <Link to='/users'>
+            <NavLink to='/users' activeclassname='is-active'>
                 <li>Users</li>
-            </Link>
+            </NavLink>
         </ul>            
     </StyledNav>
 )
@@ -37,7 +37,7 @@ const StyledNav = styled.nav`
     justify-content: space-around;
     align-items: center;
     min-height: 8vh;
-    background: rgba(90, 80, 75, 0.5);
+    background: rgba(90, 75, 110, 0.6);
     
     * {
         color: white;
@@ -57,10 +57,16 @@ const StyledNav = styled.nav`
         cursor: pointer;     
         
         font-size: large;
+    }
 
+    li{
         &:hover{
-         color: red;
+            color:rgba(90, 80, 75, 0.5);
         }
+    }
+
+    .active * {
+        color:rgba(90, 80, 75, 1);
     }
 `
 

@@ -19,11 +19,11 @@ export async function register (username, password) {
 }
 
 export async function login (username, password) {
-    instance.post('/login', {
+    
+    let response = await instance.post('/login', {
         name: username,
         password
     })
-    .then(x => {
-        console.log(x)
-    })
+    
+    return response.data;
 }

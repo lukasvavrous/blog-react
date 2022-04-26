@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import { register } from '../services/UserService'
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import styled from "styled-components"
 
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
+import { register } from '../features/auth/authSlice'    
+
+import { useSelector, useDispatch} from 'react-redux'
+
 
 const Register = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const user = useSelector((state) => state.user)
+
+
 
     const registerClick = () =>{
         if( name && password && password == confirmPassword ){
