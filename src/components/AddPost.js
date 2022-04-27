@@ -35,13 +35,17 @@ const AddPost = () => {
         }       
     }    
 
+    const changedContent = (text) => {
+        console.log(text)
+    }
+
     return(
     <Form>
         <h2>Add post</h2> 
         <InputContainer>                
             <input type="text" value={title} onChange={ (e) => setTitle(e.target.value) } placeholder="Title" name="utitle" required ></input>
             <br/>            
-            <input className="txtContent" type="text" value={content} onChange={ (e) => setContent(e.target.value) } placeholder="Content" name="content" required/>                        
+            <textarea className="txtContent" type="text" value={content} onInput={ (e) => changedContent(e.target.value) } placeholder="Content" name="content" required></textarea>                      
         </InputContainer>
         <br/>
 

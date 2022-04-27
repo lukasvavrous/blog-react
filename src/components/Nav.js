@@ -21,10 +21,6 @@ const Nav = () => (
                 <li>Login</li>
             </NavLink>
 
-            <NavLink to='/counter' activeclassname='is-active'>
-                <li>Counter</li>
-            </NavLink>
-
             <NavLink to='/users' activeclassname='is-active'>
                 <li>Users</li>
             </NavLink>
