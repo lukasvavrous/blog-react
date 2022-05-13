@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useQuery } from "react-query";
 import LoadingPage from "./LoadingPage";
-
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { icon, regular, brands } from '@fortawesome/fontawesome-svg-core'
 
 import ContentEditable from 'react-contenteditable'
 import { EditText, EditTextarea } from 'react-edit-text';
@@ -103,8 +99,8 @@ const Posts = (props) => {
         return (
             <StyledPostElement style={isEditable ? {color: 'rgba(255,255,255,0.6)'} : {}}>                
                 <StyledButtonEdit onClick={makeEditable} className={isEditable ? 'activeButton' : ''}>E</StyledButtonEdit>                
-                <EditText name="title" onSave={onSaveHandler} defaultValue={props.data.title} onChange={(x) => console.log(x)} contentEditable={isEditable} ></EditText>                
-                <EditText name="content" onSave={onSaveHandler} defaultValue={props.data.content}  onChange={changeHandler} contentEditable={isEditable} suppressContentEditableWarning={true}></EditText>
+                <h2>{props.data.title}</h2>                
+                <p contentEditable={isEditable}>{props.data.content}</p>
                 <Link to={`/users/${props.data._id}`}>{props.data.author}</Link>
             </StyledPostElement>
         )

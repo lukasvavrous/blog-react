@@ -36,11 +36,18 @@ const Users = () => {
         
     let response = data;
 
+    console.log(response)
+
     if(isLoading){
         return <LoadingPage/>
     }
     
     const Header = () => {  
+        console.log(response)
+        if(response.data == null){
+            return <h2>Empty data</h2>
+        }
+        
         let headers = Object.keys(response.data[0])
 
         return(

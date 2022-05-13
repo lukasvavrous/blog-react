@@ -27,6 +27,7 @@ const Nav = () => {
 
     const [loged, setLoged] = useState(false);
 
+<<<<<<< HEAD
     const dispatch = useDispatch()
 
 
@@ -68,6 +69,14 @@ const Nav = () => {
         </StyledNav>
     )
 }
+=======
+            <NavLink to='/users' activeclassname='is-active'>
+                <li>Users</li>
+            </NavLink>
+        </ul>            
+    </StyledNav>
+)
+>>>>>>> 7773f10525252fdb7f7f518b2280dda9c2b13c67
 
 const StyledNav = styled.nav`
     display: flex;

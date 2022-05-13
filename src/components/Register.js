@@ -8,17 +8,17 @@ import { toast } from 'react-toastify'
 
 import { useSelector, useDispatch} from 'react-redux'
 
+import { register } from '../services/UserService'
+
 
 const Register = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const user = useSelector((state) => state.user)
+    const [confirmPassword, setConfirmPassword] = useState('');    
 
-    const navigate = useNavigate();
+    const registerClick = () =>{        
 
-    const registerClick = () =>{
-        if( name && password && password == confirmPassword ){
+        if( name && password && password == confirmPassword ){            
             let isRegistered = register(name, password)
             
             if(isRegistered){
