@@ -7,7 +7,8 @@ import {
 } from "../../services/UserService"
 
 const initialState = {
-    user: {                
+    user: {
+
     }
 }
 
@@ -16,7 +17,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {
         login : (state, action) => {
-            console.log("Redux: login req:" + JSON.stringify(action))            
+            console.log("Redux: loginfwafffffffffffffffffffff req:" + JSON.stringify(action))            
             
             _login(action.payload.name, action.payload.password);                        
         },
@@ -35,4 +36,4 @@ export const authSlice = createSlice({
 
 export const { login, register, logout } = authSlice.actions;
 
-export default authSlice.reducer; 
+export default authSlice.reducer;

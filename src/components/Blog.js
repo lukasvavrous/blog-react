@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
@@ -10,10 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon, regular, brands } from '@fortawesome/fontawesome-svg-core'
 
 import ContentEditable from 'react-contenteditable'
+import { EditText, EditTextarea } from 'react-edit-text';
+import { editPost } from "../services/UserService";
+import { store } from "../app/store";
 
-
-const Editables = (props) => {
-    const text = useRef(props.text);    
+/*
+const Editables = (props) => {    
 
     const handleChange = evt => {
         text.current = evt.target.value;
@@ -25,6 +27,7 @@ const Editables = (props) => {
 
     return <ContentEditable html={text.current} onBlur={handleBlur} onChange={handleChange} />
 }
+*/
 
 const PostsContainer = styled.div`    
 `
@@ -58,6 +61,7 @@ const StyledPostElement = styled.div`
     }
 
 `
+
 const StyledButtonEdit = styled.button`
     align-self: flex-end;
 
@@ -71,27 +75,40 @@ const StyledButtonEdit = styled.button`
     }
 `
 
-
 const Posts = (props) => {
-    const PostElement = (props) => {
-        const [isEditable, setIsEditable] = useState(false)        
 
-        const makeEditable = () => {        
+    const PostElement = (props) => {
+        const [isEditable, setIsEditable] = useState(true)     
+        const [isEdited, setIsEdited] = useState(false)     
+
+        const [title, setTitle] = useState(props.data.title)     
+        const [content, setContent] = useState(props.data.content)
+
+        const makeEditable = () => {   
+
             setIsEditable(!isEditable)
-            console.log("now: ",isEditable)
+            console.title("now: ",isEditable)
+        }
+
+        const changeHandler = (a) => {
+            console.log("UPDATE" + a);
+        }
+
+        const onSaveHandler = async ({name, value}) =>{                        
+            let success = await editPost(props.data._id, name, value);
+            console.log(success, isEdited);
+            setIsEdited(success);
         }
         
         return (
             <StyledPostElement style={isEditable ? {color: 'rgba(255,255,255,0.6)'} : {}}>                
                 <StyledButtonEdit onClick={makeEditable} className={isEditable ? 'activeButton' : ''}>E</StyledButtonEdit>                
-                <Editables>{props.data.title}</Editables>
-                <h4 contentEditable={isEditable}>{props.data.title}</h4>
-                <p contentEditable={isEditable}>{props.data.content}</p>
+                <EditText name="title" onSave={onSaveHandler} defaultValue={props.data.title} onChange={(x) => console.log(x)} contentEditable={isEditable} ></EditText>                
+                <EditText name="content" onSave={onSaveHandler} defaultValue={props.data.content}  onChange={changeHandler} contentEditable={isEditable} suppressContentEditableWarning={true}></EditText>
                 <Link to={`/users/${props.data._id}`}>{props.data.author}</Link>
             </StyledPostElement>
         )
-    }
-    
+    }    
     
     return (
         <PostsContainer>
@@ -106,15 +123,35 @@ const getPosts = () => {
 }
 
 const Blog = () => {
-    const {isLoading, data} = useQuery('posts', getPosts)            
+    useEffect(() => {
+        const unSubscribe = store.subscribe(() => {            
+            
+            const storeState = store.getState();
+    
+            const _user = storeState.loged.user;
+
+            console.log('',_user)
+    
+            let isLoged = !(_user && Object.keys(_user) == 0)
+            
+            setLoged(isLoged)                     
+        })
+
+        return () => {
+            unSubscribe();
+        }
+    })
+
+    const [loged, setLoged] = useState(false);
+
+    const {isLoading, data} = useQuery('posts', getPosts)             
 
     if(isLoading){
         return <LoadingPage/>
-    }    
+    }        
 
     return(    
-        <StyledSection>
-            <Link to={'/addPost'}>+</Link>
+        <StyledSection>                        
             <Posts data={data.data}/>            
         </StyledSection>        
     )

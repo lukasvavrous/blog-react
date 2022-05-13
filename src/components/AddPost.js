@@ -1,31 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
 
 import { toast } from 'react-toastify';
+import { sendPost } from "../services/UserService";
 
 
 const AddPost = () => {
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');    
-
-    const sendPost = () => {
-        return axios.put('http://127.0.0.1:5000/posts', {
-            author: "Luxor",
-            title: title,
-            content: content,
-        })
-    }                
-
+    const [content, setContent] = useState('');          
+       
+    const navigate = useNavigate()
     
     const addPost = async () =>{
         if( title && content){
-            let isSended = await sendPost()
-            
+            let isSended = await sendPost(title, content)
+
+
             if(isSended)
-                document.location.href = '/blog'         
+                navigate('/blog', {replace: false})                
             else
                 toast.warning("Somethink went wrong")
             
@@ -49,7 +44,6 @@ const AddPost = () => {
     </Form>
     )    
 }
-
 
 const Form = styled.div`    
 

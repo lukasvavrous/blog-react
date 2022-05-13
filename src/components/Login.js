@@ -1,15 +1,29 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux'
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from '../services/UserService'
+import { login as _login } from "../features/loged/logedSlice"
+import { toast } from 'react-toastify';
+
 
 const Login = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     
+    const dispatch = useDispatch()
+    const navigate = useNavigate();    
+    
     const LoginClick = async () =>{
-        let res = await login(name, password)
-        console.log(res)
+        let sucess = await login(name, password)         
+                
+        if(!sucess){
+            toast("Bad login", 'warning')
+
+            return;
+        }                                   
+
+        navigate('/blog', {replace: false})
     }   
 
     return (
@@ -32,6 +46,7 @@ const Login = () => {
         </Form>
     )    
 }
+
 
 const Form = styled.div`    
 

@@ -1,9 +1,10 @@
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
+import { register } from '../services/UserService'
+
 import { toast } from 'react-toastify'
-import { register } from '../features/auth/authSlice'    
 
 import { useSelector, useDispatch} from 'react-redux'
 
@@ -14,7 +15,7 @@ const Register = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const user = useSelector((state) => state.user)
 
-
+    const navigate = useNavigate();
 
     const registerClick = () =>{
         if( name && password && password == confirmPassword ){
@@ -22,6 +23,7 @@ const Register = () => {
             
             if(isRegistered){
                 toast.success("Registration was sucessfull")
+                navigate('/blog', {replace: false})
             }
             else{                
                 toast.warning("Name is already somebody using!")
