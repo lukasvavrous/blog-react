@@ -1,29 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { useQuery } from "react-query";
 import LoadingPage from "./LoadingPage";
 
-import ContentEditable from 'react-contenteditable'
 import { EditText, EditTextarea } from 'react-edit-text';
 import { editPost } from "../services/UserService";
 import { store } from "../app/store";
-
-/*
-const Editables = (props) => {    
-
-    const handleChange = evt => {
-        text.current = evt.target.value;
-    };
-
-    const handleBlur = () => {
-        console.log(text.current);
-    };
-
-    return <ContentEditable html={text.current} onBlur={handleBlur} onChange={handleChange} />
-}
-*/
 
 const PostsContainer = styled.div`    
 `
@@ -71,23 +55,28 @@ const StyledButtonEdit = styled.button`
     }
 `
 
-const Posts = (props) => {
+const StyledLink = styled(Link) `
+    margin-top: auto !important;
+`
 
-    const PostElement = (props) => {
-        const [isEditable, setIsEditable] = useState(true)     
+const StyledEditTextarea = styled(EditTextarea) `
+    height: auto !important;
+`
+
+const Posts = (props) => {
+    console.log("Posts")
+    const PostElement = (props) => {        
+        const [canEdit, setCanEdit] = useState(props.data.author == undefined || props.data.author == store.getState().loged.user.name)
+        const [isReaonly, setIsReaonly] = useState(true)     
         const [isEdited, setIsEdited] = useState(false)     
 
         const [title, setTitle] = useState(props.data.title)     
-        const [content, setContent] = useState(props.data.content)
+        const [content, setContent] = useState(props.data.content)        
 
         const makeEditable = () => {   
+            setIsReaonly(!isReaonly)
 
-            setIsEditable(!isEditable)
-            console.title("now: ",isEditable)
-        }
-
-        const changeHandler = (a) => {
-            console.log("UPDATE" + a);
+            console.log("now: ",isReaonly)
         }
 
         const onSaveHandler = async ({name, value}) =>{                        
@@ -97,11 +86,11 @@ const Posts = (props) => {
         }
         
         return (
-            <StyledPostElement style={isEditable ? {color: 'rgba(255,255,255,0.6)'} : {}}>                
-                <StyledButtonEdit onClick={makeEditable} className={isEditable ? 'activeButton' : ''}>E</StyledButtonEdit>                
-                <h2>{props.data.title}</h2>                
-                <p contentEditable={isEditable}>{props.data.content}</p>
-                <Link to={`/users/${props.data._id}`}>{props.data.author}</Link>
+            <StyledPostElement style={!isReaonly ? {color: 'rgba(10,10,255,0.6)'} : {}}>                
+                { canEdit && <StyledButtonEdit onClick={makeEditable} className={!isReaonly ? 'activeButton' : ''}>E</StyledButtonEdit> }
+                <EditText name="title" onChange={(x) => setTitle(x)} defaultValue={props.data.title} onSave={onSaveHandler} readonly={isReaonly}></EditText>                
+                <StyledEditTextarea name="content" onChange={(x) => setContent(x)} defaultValue={props.data.content} onSave={onSaveHandler} readonly={isReaonly}></StyledEditTextarea>
+                <StyledLink to={`/users/${props.data._id}`}>{props.data.author}</StyledLink>
             </StyledPostElement>
         )
     }    
@@ -113,41 +102,41 @@ const Posts = (props) => {
     )
 }
 
-
-const getPosts = () => {
-    return axios.get('http://127.0.0.1:5000/posts')
-}
+const getPosts = () => axios.get('http://127.0.0.1:5000/posts')
 
 const Blog = () => {
-    useEffect(() => {
-        const unSubscribe = store.subscribe(() => {            
-            
-            const storeState = store.getState();
-    
-            const _user = storeState.loged.user;
-
-            console.log('',_user)
-    
-            let isLoged = !(_user && Object.keys(_user) == 0)
-            
-            setLoged(isLoged)                     
-        })
-
-        return () => {
-            unSubscribe();
-        }
-    })
-
     const [loged, setLoged] = useState(false);
-
     const {isLoading, data} = useQuery('posts', getPosts)             
+
+    console.log("Blog")
+
+    const isLoged = () => Object.keys(getUser());    
+
+    console.log("tady je jedna fase")
+    const getUser = () => store.getState().loged.user;        
+
+    console.log("Only reading store value -> dont refresh")
+
+
+    useEffect(() => {                
+        const unSubscribe = store.subscribe(() => {        
+
+            let is = isLoged();
+
+            console.log("change", is)
+
+            setLoged(is)                  
+        })
+        return () => unSubscribe();    
+    }, [loged])
 
     if(isLoading){
         return <LoadingPage/>
     }        
 
     return(    
-        <StyledSection>                        
+        <StyledSection>         
+            {loged && <Link to='/addPost'></Link>}
             <Posts data={data.data}/>            
         </StyledSection>        
     )

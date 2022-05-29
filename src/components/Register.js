@@ -1,20 +1,15 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import styled from "styled-components"
-
 import { register } from '../services/UserService'
-
 import { toast } from 'react-toastify'
-
-import { useSelector, useDispatch} from 'react-redux'
-
-import { register } from '../services/UserService'
-
 
 const Register = () => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');    
+
+    const navigate = useNavigate();
 
     const registerClick = () =>{        
 
@@ -28,7 +23,6 @@ const Register = () => {
             else{                
                 toast.warning("Name is already somebody using!")
             }
-
         }
         else{
             alert("You must set your credentials correctly !")
@@ -46,17 +40,13 @@ const Register = () => {
             <input type="password" value={confirmPassword} onChange={ (e) => setConfirmPassword(e.target.value) } placeholder="Confirm Password" name="psw_conf" required/>
         </InputContainer>
         <br/>
-
         <button onClick={registerClick}>Register</button>
-
         <br/>
         <br/>
-            
         <p>Already have an account? <Link to='/Login'><b>Log in</b></Link></p>
     </Form>
     )    
 }
-
 
 const Form = styled.div`    
 
@@ -69,7 +59,6 @@ const Form = styled.div`
 
         border: 1px solid transparent;       
         cursor: pointer;       
-
         &:hover,
         &:focus {
             border: 1px solid rgba(0, 0, 0, 0.25);

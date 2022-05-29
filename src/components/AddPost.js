@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
-
-
+import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { sendPost } from "../services/UserService";
+import styled from "styled-components";
+import axios from "axios";
 
 
 const AddPost = () => {
@@ -18,12 +16,10 @@ const AddPost = () => {
         if( title && content){
             let isSended = await sendPost(title, content)
 
-
             if(isSended)
                 navigate('/blog', {replace: false})                
             else
-                toast.warning("Somethink went wrong")
-            
+                toast.warning("Somethink went wrong")            
         }
         else{
             alert("You have to fill up the inputs !")

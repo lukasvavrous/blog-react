@@ -8,18 +8,17 @@ import { store } from "../app/store"
 import { getUser } from "../features/loged/logedSlice"
 
 const Nav = () => {
+
     useEffect(() => {
-        const unSubscribe = store.subscribe(() => {            
-            
+        const unSubscribe = store.subscribe(() => {                    
             const storeState = store.getState();
-    
+
             const _user = storeState.loged.user;
     
             let isLoged = !(_user && Object.keys(_user) == 0)
             
             setLoged(isLoged)                     
         })
-
         return () => {
             unSubscribe();
         }
@@ -27,11 +26,6 @@ const Nav = () => {
 
     const [loged, setLoged] = useState(false);
 
-<<<<<<< HEAD
-    const dispatch = useDispatch()
-
-
-    
     return (
         <StyledNav>
             <Link to='/'>
@@ -52,10 +46,6 @@ const Nav = () => {
                     </NavLink>
                 }
     
-                <NavLink to='/counter' activeclassname='is-active'>
-                    <li>Counter</li>
-                </NavLink>
-    
                 <NavLink to='/users' activeclassname='is-active'>
                     <li>Users</li>
                 </NavLink>
@@ -69,15 +59,7 @@ const Nav = () => {
         </StyledNav>
     )
 }
-=======
-            <NavLink to='/users' activeclassname='is-active'>
-                <li>Users</li>
-            </NavLink>
-        </ul>            
-    </StyledNav>
-)
->>>>>>> 7773f10525252fdb7f7f518b2280dda9c2b13c67
-
+            
 const StyledNav = styled.nav`
     display: flex;
     justify-content: space-around;
