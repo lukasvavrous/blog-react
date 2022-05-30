@@ -1,5 +1,5 @@
 
-import { login as _login } from "../features/loged/logedSlice"
+import { login as _login } from "../features/auth/authSlice"
 import axios from 'axios'
 import { store } from "../app/store";
 
@@ -14,7 +14,6 @@ export async function register (username, password) {
 
     try{
         response = await instance.post('/register', { name: username, password })    
-
 
         if(response.data){
 
@@ -57,6 +56,12 @@ export async function login (username, password) {
 
 export async function editPost(id, type, content){
     let res = await instance.post('/updatePost', { id, type, content })                    
+
+    return res.data == "Ok"        
+}
+
+export async function deletePost(id){
+    let res = await instance.post('/deletePost', { id })                    
 
     return res.data == "Ok"        
 }

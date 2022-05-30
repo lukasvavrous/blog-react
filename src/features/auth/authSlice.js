@@ -6,34 +6,40 @@ import {
     logout as _logout
 } from "../../services/UserService"
 
-const initialState = {
-    user: {
-
-    }
+const initialState = {    
+    user: JSON.parse(window.localStorage.getItem('user')) || {}
 }
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        login : (state, action) => {
-            console.log("Redux: loginfwafffffffffffffffffffff req:" + JSON.stringify(action))            
-            
-            _login(action.payload.name, action.payload.password);                        
-        },
-        logout : (state) => {
-            console.log("Redux: logou:")
+        login : (state, action) => {            
+            state.user = action.payload
+            window.localStorage.setItem('user', JSON.stringify(state.user));           
 
-            state.user = {}
+            return state;
         },
-        register: (state, action) => {
-            console.log("Redux: register req:" + JSON.stringify(action))
-            
-            _register(action.payload.name, action.payload.password);
+        logout : (state) => {            
+            state.user = {}
+            window.localStorage.setItem('user', JSON.stringify(state.user));
+        },
+        getUser: (state) => {
+            return state.user;
+        },
+        isLoged: (state) => {
+            return ( !state.user || Object.keys(state.user) )
+        },
+        register: (state, action) => {                        
+            state.user = action.payload
+
+            window.localStorage.setItem('user', JSON.stringify(state.user));            
+
+            return state;
         }
     }
 })
 
-export const { login, register, logout } = authSlice.actions;
+export const { login, logout, getUser, isLoged, register } = authSlice.actions;
 
-export default authSlice.reducer;
+export default authSlice.reducer; 

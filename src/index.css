@@ -1,8 +1,124 @@
-
 *{
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
+
+.Chat {
+  text-align: center;
+}
+
+.Chat {  
+  background-image: linear-gradient(
+    45deg,
+    hsl(240deg 98% 62%) 0%,
+    hsl(234deg 94% 59%) 9%,
+    hsl(229deg 90% 55%) 18%,
+    hsl(224deg 86% 52%) 27%,
+    hsl(221deg 83% 51%) 36%,
+    hsl(220deg 82% 55%) 45%,
+    hsl(220deg 78% 59%) 55%,
+    hsl(219deg 72% 62%) 64%,
+    hsl(222deg 79% 64%) 73%,
+    hsl(228deg 89% 66%) 82%,
+    hsl(240deg 95% 69%) 91%,
+    hsl(256deg 97% 65%) 100%
+  );  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.overlay{
+  display: flex;
+  place-content: center;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  height: 92vh;
+}
+
+.chatRoom{
+  backdrop-filter: blur(10px);
+
+  background-color: rgba(255, 255, 255, 0.164);
+  height: 92%;
+  width: 45vw;
+  display: flex;
+  flex-direction: column;
+  
+  justify-content: space-between;    
+
+  border-bottom: 10px;
+
+  border-radius: 12px;
+}
+
+.InputMessageBox{
+  border-top: 1px solid white;  
+
+
+  display: flex;
+  width: 100%;  
+  height: 10vh;
+
+
+  align-items: center;
+  justify-content: space-evenly;  
+}
+
+
+.InputMessageBox input{
+  cursor: pointer;
+  border-radius: 10px;
+  width: 75%;
+  height: 4vh;
+  border: 1px solid black;
+  padding: 10px;
+  font-size: large;
+  
+}
+
+.InputMessageBox button {    
+  height: 4vh;
+  width: 8vw;
+  border-radius: 5px;
+  font-size: large;
+  cursor: pointer;
+  border: 1px solid black;
+
+  transition: all .2s ease-in-out; 
+}
+
+.InputMessageBox button:hover {  
+  background-color: white;
+  border: 1px solid white;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background:  rgba(75, 72, 238, 0.281) 100%;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+ 
+
 
 body {
   margin: 0;

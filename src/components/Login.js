@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from '../services/UserService'
-import { login as _login } from "../features/loged/logedSlice"
+import { login as _login } from "../features/auth/authSlice"
 import { toast } from 'react-toastify';
 
 

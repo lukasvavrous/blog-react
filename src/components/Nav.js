@@ -5,24 +5,23 @@ import { Link, NavLink } from "react-router-dom";
 import Logo from '../images/blogosLogoCroped.png'
 import userIcon from '../images/userIcon.png'
 import { store } from "../app/store"
-import { getUser } from "../features/loged/logedSlice"
+import { getUser } from "../features/auth/authSlice"
 
 const Nav = () => {
+ 
+    const isLoged = () => {
+        let storeState = store.getState();
+        let _user = storeState.loged.user;
+        return !(_user && Object.keys(_user) == 0)
+    }
 
-    useEffect(() => {
-        const unSubscribe = store.subscribe(() => {                    
-            const storeState = store.getState();
+    useEffect(() => {                        
+        setLoged(isLoged());     
 
-            const _user = storeState.loged.user;
-    
-            let isLoged = !(_user && Object.keys(_user) == 0)
-            
-            setLoged(isLoged)                     
-        })
-        return () => {
-            unSubscribe();
-        }
-    })
+        const unSubscribe = store.subscribe(() => setLoged(isLoged()))
+
+        return () => unSubscribe();
+    })    
 
     const [loged, setLoged] = useState(false);
 
@@ -43,6 +42,12 @@ const Nav = () => {
                 { !loged &&
                     <NavLink to='/login' activeclassname='is-active'>
                         <li>Login</li>
+                    </NavLink>
+                }
+
+                { loged &&
+                    <NavLink to='/chat' activeclassname='is-active'>
+                        <li>Chat</li>
                     </NavLink>
                 }
     

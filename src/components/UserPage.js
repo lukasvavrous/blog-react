@@ -8,7 +8,7 @@ import LoadingPage from "./LoadingPage";
 import { useDispatch } from 'react-redux'
 import userIcon from '../images/userIcon.png'
 import { store } from "../app/store"
-import { getUser, logout } from "../features/loged/logedSlice"
+import { getUser, logout } from "../features/auth/authSlice"
 
 const UserPage = () => {
 

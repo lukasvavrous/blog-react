@@ -8,8 +8,8 @@ const Container = styled.div`
 
     overflow-y: scroll;
 
-
-    height: 90vh;    
+    height:100%;
+    height: 92vh;    
 `
 
 const Narrower = ({ children }) => (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch} from 'react-redux'
-import { login, logout } from './logedSlice'
+import { login, logout } from './authSlice'
 
 const Loged = () => {
     const user = useSelector((state) => state.user);
@@ -18,4 +18,4 @@ const Loged = () => {
     )
 }
 
-export default Loged
+export default Loged;

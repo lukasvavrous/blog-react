@@ -27,7 +27,7 @@ const AddPost = () => {
     }    
 
     const changedContent = (text) => {
-        console.log(text)
+        setContent(text)
     }
 
     return(
