@@ -6,9 +6,7 @@ import { logout } from "../features/auth/authSlice"
 
 const UserPage = () => {
 
-    useEffect(() => {
-        setUser(store.getState().loged.user);
-
+    useEffect(() => {        
         const unSubscribe = store.subscribe(() => {                                                
             const _user = store.getState().loged.user;        
 
@@ -21,14 +19,15 @@ const UserPage = () => {
             unSubscribe();
         }
     })
-    const [user, setUser] = useState(null);
+
+    const [user, setUser] = useState(store.getState().loged.user);
     
     const dispatch = useDispatch();
     const navigate = useNavigate();    
     
     return (
         <>
-            <h1>Já jsem: {user.name}</h1>
+            <h1>Já jsem: {user?.name}</h1>
             <button onClick={() => dispatch(logout())}>Logout</button>
         </>
     )
