@@ -1,26 +1,18 @@
 
-import { useEffect, useState, createContext } from 'react';
+import { useEffect, useState } from 'react';
 
 import firebase, { firestore } from '../app/FirebaseApp'
 import MessageBox from '../containers/MessageBox';
-import axios from 'axios';
 import { store } from "../app/store"
 import ChatInput from '../containers/ChatInput';
 
 const chatappRef = firestore.collection('chatapp');
 
 function Chat() {   
-  const [user, setUser] = useState({});    
-  const [ip, setIP] = useState('');     
-  const [messages, setMessages] = useState([]);
-     
-  const getIp = async () => {
-    const res = await axios.get('https://geolocation-db.com/json/')    
-    setIP(res.data.IPv4)
-  }
+  const [user, setUser] = useState({});      
+  const [messages, setMessages] = useState([]);    
 
-  useEffect(() => {    
-    setIP(getIp);
+  useEffect(() => {      
     setUser(store.getState().loged.user); 
 
     chatappRef
@@ -36,8 +28,7 @@ function Chat() {
   
   const sendMessage = async (msg) => {  
     await chatappRef.add({
-      sender: user.name,      
-      ip: ip,
+      sender: user.name,            
       createdAt: firebase.firebase.firestore.FieldValue.serverTimestamp(),      
       content:msg,      
     });        
@@ -56,7 +47,7 @@ function Chat() {
 
   return (
     <div className="Chat">            
-      <ChatRoom messages={messages} ip={ip} sendMessage={sendMessage}/>      
+      <ChatRoom messages={messages} sendMessage={sendMessage}/>      
     </div>
   );
 }

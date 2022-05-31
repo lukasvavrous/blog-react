@@ -1,13 +1,13 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import Post from "../fragments/Post";
 import LoadingPage from "./LoadingPage";
 import { store } from "../app/store";
+import instance from "../services/AxiosConf";
 
 
-const getPosts = (name) => axios.get(`http://127.0.0.1:5000/posts/${name}`)
+const getPosts = (name) => instance.get(`/posts/${name}`)
     
 const Posts = () => {    
     const isLoged = () => Object.keys(getUser()) != 0;    

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { useQuery } from "react-query";
 import LoadingPage from "./LoadingPage";
 import { store } from "../app/store";
 import Post from "../fragments/Post";
+import instance from "../services/AxiosConf";
 
 const StyledSection = styled.section`    
     & > a{
@@ -15,7 +15,7 @@ const StyledSection = styled.section`
     }
 `
 
-const getPosts = () => axios.get('http://127.0.0.1:5000/posts')
+const getPosts = () => instance.get('/posts')
 
 const Blog = () => {
     const [loged, setLoged] = useState(store.getState().loged.user);

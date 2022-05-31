@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
+import instance from "../services/AxiosConf";
 import { useQuery } from "react-query";
 import LoadingPage from "./LoadingPage";
 
@@ -28,7 +28,7 @@ const StyledTable = styled.table`
 `
 
 const getUsers = () => {
-    return axios.get('http://127.0.0.1:5000/users')
+    return instance.get('/users')
 }
 
 const Users = () => {

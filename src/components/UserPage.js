@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
-import { useQuery } from "react-query";
-import LoadingPage from "./LoadingPage";
-
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
-import userIcon from '../images/userIcon.png'
 import { store } from "../app/store"
-import { getUser, logout } from "../features/auth/authSlice"
+import { logout } from "../features/auth/authSlice"
 
 const UserPage = () => {
 

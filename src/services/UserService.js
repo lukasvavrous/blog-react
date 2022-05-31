@@ -1,13 +1,6 @@
-
 import { login as _login } from "../features/auth/authSlice"
-import axios from 'axios'
 import { store } from "../app/store";
-
-var instance = axios.create({
-    baseURL: false ? 'http://127.0.0.1:5000/' || 'https://blogos-backend.herokuapp.com/',
-    timeout: 2000,
-    headers: {'X-Custom-Header': 'foobar'}
-  });
+import instance from "./AxiosConf";
 
 export async function register (username, password) {    
     let response = null;

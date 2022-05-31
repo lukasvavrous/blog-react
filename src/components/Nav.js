@@ -1,11 +1,9 @@
 import React,{ useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from 'react-redux'
 import { Link, NavLink } from "react-router-dom";
 import Logo from '../images/blogosLogoCroped.png'
 import userIcon from '../images/userIcon.png'
 import { store } from "../app/store"
-import { getUser } from "../features/auth/authSlice"
 
 const Nav = () => {
  

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { sendPost } from "../services/UserService";
 import styled from "styled-components";
-import axios from "axios";
 
 
 const AddPost = () => {
