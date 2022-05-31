@@ -4,7 +4,7 @@ import axios from 'axios'
 import { store } from "../app/store";
 
 var instance = axios.create({
-    baseURL: 'http://127.0.0.1:5000/',
+    baseURL: false ? 'http://127.0.0.1:5000/' || 'https://blogos-backend.herokuapp.com/',
     timeout: 2000,
     headers: {'X-Custom-Header': 'foobar'}
   });
