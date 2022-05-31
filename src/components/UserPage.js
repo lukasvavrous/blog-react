@@ -9,18 +9,12 @@ const UserPage = () => {
     useEffect(() => {
         setUser(store.getState().loged.user);
 
-        const unSubscribe = store.subscribe(() => {          
-            console.log("subscribe")
-                          
-            const _user = store.getState().loged.user;
-
-            console.log("dispach", _user)
+        const unSubscribe = store.subscribe(() => {                                                
+            const _user = store.getState().loged.user;        
 
             setUser(_user);                
     
-            if(!_user || Object.keys(_user) == 0) navigate("/login")                         
-
-            console.log(_user);
+            if(!_user || Object.keys(_user) == 0) navigate("/login")                                     
         })
      
         return () => {
@@ -34,7 +28,7 @@ const UserPage = () => {
     
     return (
         <>
-            <h1>{JSON.stringify(user)}</h1>
+            <h1>Já jsem: {user.name}</h1>
             <button onClick={() => dispatch(logout())}>Logout</button>
         </>
     )
