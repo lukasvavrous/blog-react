@@ -1,18 +1,18 @@
 import React,{ useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, NavLink } from "react-router-dom";
 import Logo from '../images/blogosLogoCroped.png'
 import userIcon from '../images/userIcon.png'
 import { store } from "../app/store"
+import {Container, Navbar,  Nav as _Nav} from "react-bootstrap"
 
-const Nav = () => {
- 
+
+const Nav = () => {     
     const isLoged = () => {
         let storeState = store.getState();
         let _user = storeState.loged.user;
         return !(_user && Object.keys(_user) == 0)
     }
-
+    
     useEffect(() => {                        
         setLoged(isLoged());     
 
@@ -21,49 +21,51 @@ const Nav = () => {
         return () => unSubscribe();
     })    
 
+    
     const [loged, setLoged] = useState(false);
 
-    return (
-        <StyledNav>
-            <Link to='/'>
-                <img src={Logo} alt='Blogos logo'></img>        
-            </Link>
-            <ul>
-                <NavLink to='/about' activeclassname='is-active'>
-                    <li>About</li>
-                </NavLink>
-    
-                <NavLink to='/blog' activeclassname='is-active'>
-                    <li>Blog</li>
-                </NavLink>
-                
-                { !loged &&
-                    <NavLink to='/login' activeclassname='is-active'>
-                        <li>Login</li>
-                    </NavLink>
-                }
+    return (        
+        <Navbar style={NavbarStyle} expand="lg">
+        <Container>
+          <Navbar.Brand href="/"><img src={Logo} alt='Blogos logo'></img></Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <_Nav className="me-auto">
+              <_Nav.Link href="/about">O projektu</_Nav.Link>
+              <_Nav.Link href="/blog">Blog</_Nav.Link>
+
+              {!loged && 
+              <_Nav.Link href='/login' > Log-In</_Nav.Link>
+              }
 
                 { loged &&
-                    <NavLink to='/chat' activeclassname='is-active'>
-                        <li>Chat</li>
-                    </NavLink>
+                    <_Nav.Link href='/chat' activeclassname='is-active'>
+                        Chat
+                    </_Nav.Link>
                 }
-    
-                <NavLink to='/users' activeclassname='is-active'>
-                    <li>Users</li>
-                </NavLink>
-                
+
+              <_Nav.Link href='/users' > Uživatelé</_Nav.Link>
+
+
                 { loged && 
-                    <NavLink to='/user' activeclassname='is-active'>
-                        <img src={userIcon} alt="user icon"></img>
-                    </NavLink> 
+                    <_Nav.Link href='/user' activeclassname='is-active'>
+                        <img src={userIcon} style={{height: 30 + 'px'}} alt="user icon"></img>
+                    </_Nav.Link> 
                 }
-            </ul>            
-        </StyledNav>
+              
+            </_Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     )
 }
+        
+const NavbarStyle = {    
+    backgroundColor: 'rgba(90, 75, 110, 0.6)',
+
+};
             
-const StyledNav = styled.nav`
+const StyledNavbar = styled.div`
     display: flex;
     justify-content: space-around;
     align-items: center;

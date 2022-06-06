@@ -44,7 +44,7 @@ const Users = () => {
     
     const Header = () => {  
         console.log(response)
-        if(response.data == null){
+        if(response.data == null || response.data.length < 1){
             return <h2>Empty data</h2>
         }
         

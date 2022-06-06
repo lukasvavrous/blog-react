@@ -4,6 +4,8 @@ import { EditText, EditTextarea } from 'react-edit-text';
 import { editPost, deletePost } from "../services/UserService";
 import { Link } from "react-router-dom";
 import { store } from "../app/store";
+import {Card,Button, Container} from "react-bootstrap"
+
 
 const Post = (props) => {           
     const getCanBeEdited = () => {
@@ -42,7 +44,10 @@ const Post = (props) => {
     }
 
     return (
-        <StyledPostElement style={!isReaonly ? {color: 'rgba(10,10,255,0.6)'} : {}}>   
+        <Container>
+
+<Card className="mt-3 text-center" style={!isReaonly ? {color: 'rgba(10,10,255,0.6)'} : {}}>
+
             
             { canEdit &&
             <StyledFunctionalBox>
@@ -53,7 +58,10 @@ const Post = (props) => {
             <EditText name="title" onChange={(x) => setTitle(x)} defaultValue={props.data.title} onSave={onSaveHandler} readonly={isReaonly}></EditText>                
             <StyledEditTextarea name="content" onChange={(x) => setContent(x)} defaultValue={props.data.content} onSave={onSaveHandler} readonly={isReaonly}></StyledEditTextarea>
             <StyledLink to={`/posts/${props.data.author}`}>{props.data.author}</StyledLink>
-        </StyledPostElement>
+            </Card>
+
+        </Container>
+
     );
 }    
 
